@@ -1,5 +1,6 @@
 package userAccount;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.Date;
@@ -8,11 +9,11 @@ import DataInfo.*;
 
 public class Main {
 	
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException, NumberFormatException, IOException {
 		
 
 		
-		Scanner sc=new Scanner(System.in);
+		
 		System.out.println();
 		System.out.println("\t+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println("\t+   !!.....Welcome to FLIGHT MANAGEMNET SYSTEM.....!!   +");
@@ -20,33 +21,39 @@ public class Main {
 		System.out.println();
 		System.out.println();
 		
-		System.out.println(" [signup]/[login]");
-		System.out.println("..................");
-		String s=sc.nextLine();
+		Scanner sc=new Scanner(System.in);
+		
+		
+		while(true)
+		{
+		System.out.println();
+		System.out.println("Enter your choice:");
+		System.out.println("[1.signup]/[2.login]");
+		System.out.println("....................");
+		int s=sc.nextInt();
+		sc.nextLine();
 		System.out.println();
 		System.out.println();
 		System.out.println();
 		
-		if(s.equals("signup"))
+		if(s==1)
 		{
 			UserService u=new UserService();
 			User u1=new User();
 			u.addUser(u1);
+			
 				
 		}
 		else
 		{
 			new UserInfo().put();
+			new ValidateUser().entry();
 			
-			System.out.println("USER NAME :");
-			String userName=sc.nextLine();
-			
-			System.out.println("PASSWORD :");
-			String password=sc.nextLine();
-			
-			if(new ValidateUser().Validation(userName,password))
+			new ValidateUser();
+			if(ValidateUser.check)
 			{
-				//lable:
+				while(true)
+				{
 					
 				System.out.println("\t\t\t WELCOME USER!!!");
 				System.out.println("\t\t\t~~~~~~~~~~~~~~~~");
@@ -119,8 +126,12 @@ public class Main {
 					
 					
 				}
-				
-				
+				System.out.println();
+				System.out.println("Press 1 to continue:");
+				int n=sc.nextInt();
+				if(n!=1)
+					System.exit(1);
+			}
 			}
 			
 			
@@ -130,9 +141,12 @@ public class Main {
 			
 			}
 			
+		
+		
+		
+		
+		
+	}	
 		}
-		sc.close();
-
-	}
-
+}
 }

@@ -3,7 +3,9 @@ package userAccount;
 import java.math.BigInteger;
 import daoImpl.*;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Iterator;
@@ -22,8 +24,20 @@ public class BookingServicesImpl implements BookingDaoImpl{
 	    BigInteger userId=sc.nextBigInteger();
 	    sc.nextLine();
 	    
+	    String date;
+	    while(true)
+	    {
 	    System.out.println("Enter Booking Date: ");
-	    String date=sc.nextLine();  
+	    date=sc.nextLine();  
+	    Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(date);
+	    if(date1.compareTo(new Date())<0)
+	    {
+	    	System.out.println("..!!enter dates for future bookings only!!..");
+	    }
+	    else
+	    break;
+	    }
+	    
 	    
 	    System.out.println("Enter no of Passengers: ");
 	    int noOfPassengers=sc.nextInt();
@@ -32,9 +46,11 @@ public class BookingServicesImpl implements BookingDaoImpl{
 	    b.setNoOfPassengers(noOfPassengers);
 	    b.setBookingId(BookingId);
 	    b.setBookingDate(date);
+	    Long l=new Long("500");
+	    b.setTicketCost(BigInteger.valueOf((l*b.getNoOfPassengers())));
 	    
 	    al.add(b);
-	    sc.close();
+	  
 	    
 	    System.out.println("Note your BOOKINGID: "+BookingId);
 	    

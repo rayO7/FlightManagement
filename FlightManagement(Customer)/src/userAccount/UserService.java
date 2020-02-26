@@ -4,11 +4,9 @@ import java.math.BigInteger;
 import daoImpl.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 public class UserService implements UserDaoImpl{
 	
@@ -21,7 +19,7 @@ public class UserService implements UserDaoImpl{
 		
 		//input user data
 		
-		System.out.println("Enter User type: ");
+		System.out.println("Enter User type:(customer/admin) ");
 		String userType=sc.nextLine();
 		
 		Random random=new Random();
@@ -33,12 +31,36 @@ public class UserService implements UserDaoImpl{
 		System.out.println("Enter Password: ");
 		String userPassword=sc.nextLine();
 		
+		BigInteger userPhone;
+		while(true)
+		{
 		System.out.println("Enter PhoneNo: ");
 		String phone=sc.nextLine();
-		BigInteger userPhone=new BigInteger(phone);
 		
+		if(phone.length()==10 && phone.charAt(0)!='0')
+		{
+		userPhone=new BigInteger(phone);
+		break;
+		}
+		else
+		{
+			System.out.println("..!!enter valid phone no!!..");
+		}
+		}
+		String userEmail;
+		while(true)
+		{
 		System.out.println("Enter User Email: ");
-		String userEmail=sc.nextLine();
+		
+		userEmail=sc.nextLine();
+		
+		if(!isValidEmailId(userEmail))
+		{
+			System.out.println("..!!enter valid email!!..");
+		}
+		else
+			break;
+		}
 		
 		//adding data in the userClass
 		
@@ -54,22 +76,25 @@ public class UserService implements UserDaoImpl{
 		
 		set.add(user);
 		
-//		Iterator it=set.iterator();
-//		while(it.hasNext())
-//		{
-//			User u1=(User)it.next();
-//			System.out.println(u1.getUserName());
-//			System.out.println(u1.getUserPassword());
-//		}
-		
-		
-		sc.close();
-		
+		System.out.println();
 		System.out.println("Note your USERID: "+userId);
-		
+		System.out.println();
 		
 		
 	}
+	
+	 public static boolean isValidEmailId(String email) 
+	    { 
+	        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+	                            "[a-zA-Z0-9_+&*-]+)*@" + 
+	                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+	                            "A-Z]{2,7}$"; 
+	                              
+	        Pattern pat = Pattern.compile(emailRegex); 
+	        if (email == null) 
+	            return false; 
+	        return pat.matcher(email).matches(); 
+	    } 
 	
 	
 
